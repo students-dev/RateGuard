@@ -1,6 +1,6 @@
 {
   "name": "rateguard",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "RateGuard is a lightweight, runtime-agnostic rate-limiting middleware for modern JavaScript backends, designed for students and open-source contributors.",
   "type": "module",
   "main": "./dist/index.js",
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "node --test dist/**/*.test.js",
+    "test": "node --test test/**/*.test.js",
     "pretest": "npm run build"
   },
   "repository": {
