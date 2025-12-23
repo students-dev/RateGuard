@@ -1,0 +1,42 @@
+{
+  "name": "rateguard",
+  "version": "1.0.0",
+  "description": "RateGuard is a lightweight, runtime-agnostic rate-limiting middleware for modern JavaScript backends, designed for students and open-source contributors.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test dist/**/*.test.js",
+    "pretest": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/students-dev/RateGuard.git"
+  },
+  "keywords": [
+    "rate-limit",
+    "middleware",
+    "express",
+    "typescript"
+  ],
+  "author": "students-dev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/students-dev/RateGuard/issues"
+  },
+  "homepage": "https://github.com/students-dev/RateGuard#readme",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
+  }
+}
