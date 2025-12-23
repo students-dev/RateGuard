@@ -4,3 +4,10 @@ export class RateGuardError extends Error {
     this.name = 'RateGuardError';
   }
 }
+
+export class ConfigurationError extends RateGuardError {
+  constructor(message: string) {
+    super(`[Configuration] ${message}`);
+    this.name = 'ConfigurationError';
+  }
+}

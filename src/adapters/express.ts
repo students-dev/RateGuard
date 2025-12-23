@@ -2,6 +2,7 @@ import { Limiter } from '../core/limiter.js';
 import { Store } from '../core/store.js';
 import { MemoryStore } from '../stores/memory.js';
 import { HEADERS } from '../core/headers.js';
+import { ConfigurationError } from '../core/errors.js';
 
 export interface RateGuardOptions {
   windowMs: number;
@@ -14,10 +15,33 @@ export interface RateGuardOptions {
 }
 
 const defaultKeyGenerator = (req: any): string => {
-  return req.ip || req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown';
+  // Support for common proxy headers and IPv6 normalization
+  const ip = 
+    req.headers['x-forwarded-for']?.split(',')[0].trim() || 
+    req.ip || 
+    req.socket?.remoteAddress || 
+    '127.0.0.1';
+
+  // Basic IPv6 normalization: [::1] -> 127.0.0.1
+  if (ip === '::1' || ip === '::ffff:127.0.0.1') {
+    return '127.0.0.1';
+  }
+
+  return ip;
 };
 
+function validateOptions(options: RateGuardOptions) {
+  if (typeof options.windowMs !== 'number' || options.windowMs <= 0) {
+    throw new ConfigurationError('windowMs must be a positive number.');
+  }
+  if (typeof options.max !== 'number' || options.max < 0) {
+    throw new ConfigurationError('max must be a non-negative number.');
+  }
+}
+
 export function rateGuard(options: RateGuardOptions) {
+  validateOptions(options);
+
   const windowMs = options.windowMs;
   const max = options.max;
   const algorithm = options.algorithm || 'fixed';
