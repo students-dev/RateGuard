@@ -15,7 +15,7 @@ Designed with simplicity and clarity in mind, RateGuard is perfect for students,
 ## Installation
 
 ```bash
-npm install rateguard
+npm install @students-dev/rateguard
 ```
 
 ## Usage
